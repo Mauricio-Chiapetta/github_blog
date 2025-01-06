@@ -23,13 +23,13 @@ export function RepoCards({ repository }) {
           </h3>
           <div className="flex flex-col sm:flex-row sm:gap-4">
             <p className="text-sm text-base-subtitle ">
-              Atualizado em :{" "}
+              Criado em :{" "}
               <span className="text-base-title font-semibold">
-                {formatDate(repo.updated_at)}
+                {formatDate(repo.created_at)}
               </span>
             </p>
             <p className="text-sm text-base-subtitle ">
-              Criado em :{" "}
+              Atualizado em :{" "}
               <span className="text-base-title font-semibold">
                 {formatDate(repo.updated_at)}
               </span>
