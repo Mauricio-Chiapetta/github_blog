@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { ProfileCard } from "./components/ProfileCard";
 import { RepoCards } from "./components/RepoCards";
 import { Header } from "./components/Header";
-
+import { Form } from "./components/Form";
 async function fetchGithubProfile() {
   const response = await fetch(
     "https://api.github.com/users/Mauricio-Chiapetta"
@@ -22,6 +22,36 @@ async function fetchGithubRepositories() {
 function App() {
   const [profile, setProfile] = useState([]);
   const [repository, setRepository] = useState([]);
+  const [filteredRepositories, setFilteredRepositories] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [query, setQuery] = useState("");
+
+  const handleSearch = async (ev) => {
+    ev.preventDefault();
+    if (!query.trim()) {
+      alert("Por favor, insira um termo de busca.");
+      return;
+    }
+    setIsLoading(true);
+    try {
+      const response = await fetch(
+        `https://api.github.com/search/repositories?q=${query}+user:Mauricio-Chiapetta`
+      );
+      console.log(response);
+      if (!response.ok) {
+        throw new Error("Erro ao buscar o repositório. . .");
+      }
+
+      const data = await response.json();
+      setFilteredRepositories(data.items);
+      setQuery("");
+    } catch (error) {
+      console.error(error);
+      alert("Ocorreu um erro");
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   function sortRepositoriesByDate(repositories) {
     return repositories.sort(
@@ -48,8 +78,17 @@ function App() {
     <>
       <Header />
       <ProfileCard profile={profile} />
-      {/* fazer o campo de input para procurar repositórios e se não tiver renderizar um componente dizendo que o repositório não existe */}
-      <RepoCards repository={repository} />
+      <Form
+        handleSearch={handleSearch}
+        isLoading={isLoading}
+        query={query}
+        setQuery={setQuery}
+      />
+      <RepoCards
+        repository={
+          filteredRepositories.length > 0 ? filteredRepositories : repository
+        }
+      />
     </>
   );
 }

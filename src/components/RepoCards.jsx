@@ -56,36 +56,3 @@ export function RepoCards({ repository }) {
     </div>
   );
 }
-
-//   return (
-//     <div className="grid grid-cols-1 gap-6 px-4 sm:px-8 lg:mx-52 mb-2">
-//       {repository.map((repo) => (
-//         <div
-//           key={repo.id}
-//           className="bg-base-post shadow-md rounded-lg p-4 sm:p-6 border-2 border-base-border hover:border-base-label transition-colors duration-300"
-//         >
-//           <h3 className="text-lg sm:text-xl font-semibold text-base-title mb-2">
-//             {repo.name.toUpperCase()}
-//           </h3>
-//           <div className="flex flex-col sm:flex-row sm:gap-4">
-//             <p className="text-sm text-base-subtitle mb-2 sm:mb-4">
-//               {"Atualizado em: " + formatDate(repo.updated_at)}
-//             </p>
-//             <p className="text-sm text-base-subtitle mb-2 sm:mb-4">
-//               {"Criado em: " + formatDate(repo.created_at)}
-//             </p>
-//           </div>
-
-//           <a
-//             href={repo.html_url}
-//             target="_blank"
-//             rel="noopener noreferrer"
-//             className="text-blue text-sm sm:text-base hover:underline"
-//           >
-//             Ver Repositório
-//           </a>
-//         </div>
-//       ))}
-//     </div>
-//   );
-// }
